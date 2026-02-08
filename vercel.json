@@ -1,6 +1,12 @@
 {
-  "buildCommand": "npm run build && hugo",
+  "buildCommand": "npm run build && hugo --minify",
   "outputDirectory": "public",
   "devCommand": "hugo server",
-  "installCommand": "npm install"
+  "installCommand": "npm install",
+  "framework": null,
+  "build": {
+    "env": {
+      "HUGO_VERSION": "0.154.2"
+    }
+  }
 }
