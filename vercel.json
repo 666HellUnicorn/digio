@@ -1,0 +1,6 @@
+{
+  "buildCommand": "npm run build && hugo",
+  "outputDirectory": "public",
+  "devCommand": "hugo server",
+  "installCommand": "npm install"
+}

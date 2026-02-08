@@ -1,0 +1,4 @@
+baseURL = 'https://your-username.vercel.app/'
+languageCode = 'zh-cn'
+title = 'My Blog'
+theme = 'digio-theme'
