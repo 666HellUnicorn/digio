@@ -1,8 +1,8 @@
 +++
 portraitImage = "/portrait.png"
 
-introTitle = "Introduce yourself here!"
-introBody = "Give the audience a little summary/introduction about what to expect in this ASCII, black and white, pixel focused theme."
+introTitle = "想要有梦想的咸鱼"
+introBody = "一个想有梦想的咸鱼，记录自己的学习过程和思考。"
 
 statusImage = "/status.png"
 statusText = "A way to let everyone know what you're up to..."
