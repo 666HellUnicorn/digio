@@ -541,7 +541,7 @@ jobs:
 
 **Python 项目：**
 
-```gitignore
+```text
 # Python
 __pycache__/
 *.py[cod]
@@ -569,7 +569,7 @@ secrets.yaml
 
 **Node.js 项目：**
 
-```gitignore
+```text
 # Dependencies
 node_modules/
 npm-debug.log*
