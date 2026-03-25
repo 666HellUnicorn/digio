@@ -131,7 +131,7 @@ git clone git@github.com:username/repo-name.git
 
 ### 4.1 工作流程
 
-```
+```text
 工作区 → 暂存区 → 本地仓库 → 远程仓库
 ```
 
@@ -232,7 +232,7 @@ git branch -d feature-branch
 
 ### 5.3 分支最佳实践
 
-```
+```text
 main (主分支)
   └── develop (开发分支)
        ├── feature/user-auth (功能分支)

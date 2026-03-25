@@ -1,4 +1,13 @@
 baseURL = 'https://your-username.vercel.app/'
 languageCode = 'zh-cn'
 title = 'My Blog'
-theme = 'digio-theme'
+theme = 'blowfish'
+
+enableRobotsTXT = true
+summaryLength = 0
+
+[pagination]
+  pagerSize = 10
+
+[outputs]
+  home = ["HTML", "RSS", "JSON"]

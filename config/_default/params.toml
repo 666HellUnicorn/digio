@@ -1,0 +1,41 @@
+mainSections = ["open-source", "write"]
+dateFormat = "2006-01-02"
+
+colorScheme = "auto"
+
+showReadingTime = true
+showShareButtons = true
+showPostNavLinks = true
+showBreadCrumbs = true
+showCodeCopyButtons = true
+showWordCount = true
+showRssButtonInSectionTermList = true
+useHugoToc = true
+disableSpecial1stPost = false
+disableScrollToTop = false
+comments = false
+hidemeta = false
+hideSummary = false
+showtoc = false
+tocopen = false
+
+homepage.layout = "page"
+homepage.showRecent = true
+homepage.showRecentItems = 5
+
+[author]
+  name = "Hell Unicorn"
+  headline = "Student"
+  bio = "A passionate developer sharing knowledge"
+  links = [
+    { github = "https://github.com/xufwww0829" },
+    { twitter = "" },
+  ]
+
+[[socialIcons]]
+  name = "github"
+  url = "https://github.com/xufwww0829"
+
+[[socialIcons]]
+  name = "twitter"
+  url = ""
