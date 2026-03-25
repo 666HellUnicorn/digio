@@ -758,6 +758,7 @@ git remote prune origin
 ### 学习资源
 - [GitHub Skills](https://skills.github.com)
 - [GitHub Learning Lab](https://lab.github.com)
+- [Learn Git Branching](https://learngitbranching.js.org/)
 
 ### 工具推荐
 - [GitHub Desktop](https://desktop.github.com) - 图形化 Git 客户端
