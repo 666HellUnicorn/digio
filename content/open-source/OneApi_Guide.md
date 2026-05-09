@@ -1,7 +1,10 @@
 +++
 date = '2026-05-09T08:43:10+08:00'
-draft = true
+draft = false
 title = 'One API 使用教程'
+tags = ['open-source']
+listIcon = "/contribute.png"
+teaser = "在 CCSwitch 中配置和使用 One API 中转服务。"
 +++
 # CCSwitch 使用中转 API 教程
 
@@ -180,5 +183,4 @@ MiMo-V2.5-Pro
 ```
 
 如果怀疑 Key 泄露，请自行重新生成。
-
 
