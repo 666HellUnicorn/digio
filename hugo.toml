@@ -1,6 +1,6 @@
 baseURL = 'https://your-username.vercel.app/'
 languageCode = 'zh-cn'
-title = 'My Blog'
+title = 'Hellunicorn Blog'
 theme = 'blowfish'
 
 enableRobotsTXT = true
