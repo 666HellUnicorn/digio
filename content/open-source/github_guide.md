@@ -199,9 +199,152 @@ git diff
 
 ---
 
-## 5. 分支管理
+## 5. Git 回退操作
 
-### 5.1 创建和切换分支
+### 5.1 撤销工作区修改（未提交）
+
+**丢弃单个文件的修改：**
+
+```bash
+# 恢复文件到上次提交的状态
+git checkout -- filename.py
+
+# 或使用 restore（推荐）
+git restore filename.py
+```
+
+**丢弃所有修改：**
+
+```bash
+# 恢复所有文件
+git checkout -- .
+
+# 或使用 restore（推荐）
+git restore .
+```
+
+### 5.2 撤销暂存区（已 add 未 commit）
+
+**取消暂存单个文件：**
+
+```bash
+# 从暂存区移除，保留工作区修改
+git reset HEAD filename.py
+
+# 或使用 restore（推荐）
+git restore --staged filename.py
+```
+
+**取消暂存所有文件：**
+
+```bash
+git reset HEAD
+
+# 或使用 restore（推荐）
+git restore --staged .
+```
+
+### 5.3 回退提交（已 commit）
+
+**保留修改的回退（推荐）：**
+
+```bash
+# 回退到指定提交，修改保留在暂存区
+git reset --soft HEAD~1
+
+# 回退到指定提交，修改保留在工作区
+git reset --mixed HEAD~1  # 默认模式
+```
+
+**彻底回退（丢弃修改）：**
+
+```bash
+# 回退到指定提交，丢弃所有修改
+git reset --hard HEAD~1
+
+# 回退到指定 commit hash
+git reset --hard abc1234
+```
+
+### 5.4 安全回退（创建新提交撤销）
+
+**使用 revert（推荐用于已推送的提交）：**
+
+```bash
+# 撤销最近一次提交，创建一个新的反向提交
+git revert HEAD
+
+# 撤销指定提交
+git revert abc1234
+
+# 撤销多个提交
+git revert HEAD~3..HEAD
+```
+
+### 5.5 回退对比
+
+| 方式 | 使用场景 | 是否保留修改 | 是否改写历史 |
+|------|----------|--------------|--------------|
+| `git restore` | 丢弃工作区修改 | ❌ | ❌ |
+| `git restore --staged` | 取消暂存 | ✅ | ❌ |
+| `git reset --soft` | 回退提交，保留修改在暂存区 | ✅ | ✅ |
+| `git reset --mixed` | 回退提交，保留修改在工作区 | ✅ | ✅ |
+| `git reset --hard` | 彻底回退，丢弃所有修改 | ❌ | ✅ |
+| `git revert` | 安全回退，创建新提交 | ✅ | ❌ |
+
+### 5.6 回退已推送到远程的提交
+
+**场景 1：使用 revert（推荐）**
+
+```bash
+# 创建一个反向提交
+git revert HEAD
+git push
+
+# 效果：历史记录保留，代码回退
+# A → B → C → C'（C 的反向）
+```
+
+**场景 2：使用 reset（谨慎使用）**
+
+```bash
+# 本地回退
+git reset --hard HEAD~1
+
+# 强制推送（会改写远程历史）
+git push --force
+
+# 或更安全的方式
+git push --force-with-lease
+```
+
+⚠️ **警告**：`git push --force` 会改写远程历史，可能影响其他协作者。仅在个人分支或确认无人使用时使用。
+
+### 5.7 找回误删的提交
+
+**查看所有操作记录：**
+
+```bash
+# 查看所有 HEAD 移动记录
+git reflog
+
+# 输出示例：
+# abc1234 HEAD@{0}: reset: moving to HEAD~1
+# def5678 HEAD@{1}: commit: add new feature
+```
+
+**恢复到指定状态：**
+
+```bash
+# 根据 reflog 找到 commit hash
+git reset --hard def5678
+```
+
+---
+
+## 6. 分支管理
+
+### 6.1 创建和切换分支
 
 ```bash
 # 创建新分支
@@ -217,7 +360,7 @@ git checkout -b feature-branch
 git checkout main
 ```
 
-### 5.2 合并分支
+### 6.2 合并分支
 
 ```bash
 # 切换到目标分支（如 main）
@@ -230,7 +373,7 @@ git merge feature-branch
 git branch -d feature-branch
 ```
 
-### 5.3 分支最佳实践
+### 6.3 分支最佳实践
 
 ```text
 main (主分支)
@@ -250,9 +393,9 @@ main (主分支)
 
 ---
 
-## 6. Pull Request (PR) 工作流
+## 7. Pull Request (PR) 工作流
 
-### 6.1 Fork 工作流（贡献开源项目）
+### 7.1 Fork 工作流（贡献开源项目）
 
 1. **Fork 原仓库**：点击 Fork 按钮复制到你的账户
 2. **克隆你的 Fork**：
@@ -293,7 +436,7 @@ git merge upstream/main
 git push origin main
 ```
 
-### 6.2 PR 描述模板
+### 7.2 PR 描述模板
 
 ```markdown
 ## 变更说明
@@ -325,9 +468,9 @@ Closes #123
 
 ---
 
-## 7. Issues 管理
+## 8. Issues 管理
 
-### 7.1 创建 Issue
+### 8.1 创建 Issue
 
 1. 进入仓库的 "Issues" 标签页
 2. 点击 "New issue"
@@ -336,7 +479,7 @@ Closes #123
 5. 分配给相关人员（可选）
 6. 点击 "Submit new issue"
 
-### 7.2 Issue 模板
+### 8.2 Issue 模板
 
 **Bug 报告模板：**
 
@@ -387,7 +530,7 @@ Closes #123
 添加任何其他关于功能请求的信息。
 ```
 
-### 7.3 Issue 标签管理
+### 8.3 Issue 标签管理
 
 **常用标签：**
 
@@ -403,9 +546,9 @@ Closes #123
 
 ---
 
-## 8. GitHub Actions 自动化
+## 9. GitHub Actions 自动化
 
-### 8.1 创建工作流
+### 9.1 创建工作流
 
 在 `.github/workflows/` 目录下创建 YAML 文件：
 
@@ -440,7 +583,7 @@ jobs:
         pytest
 ```
 
-### 8.2 常用 Actions
+### 9.2 常用 Actions
 
 **自动部署：**
 
@@ -463,9 +606,9 @@ jobs:
 
 ---
 
-## 9. GitHub Pages 静态网站
+## 10. GitHub Pages 静态网站
 
-### 9.1 启用 GitHub Pages
+### 10.1 启用 GitHub Pages
 
 1. 进入仓库 Settings
 2. 找到 "Pages" 部分
@@ -473,7 +616,7 @@ jobs:
 4. 选择分支和目录（如 `main` 分支的 `/docs` 文件夹）
 5. 点击 Save
 
-### 9.2 部署流程
+### 10.2 部署流程
 
 **使用 Actions 自动部署：**
 
@@ -511,9 +654,9 @@ jobs:
 
 ---
 
-## 10. 最佳实践
+## 11. 最佳实践
 
-### 10.1 Commit 消息规范
+### 11.1 Commit 消息规范
 
 **Conventional Commits 格式：**
 
@@ -537,7 +680,7 @@ jobs:
 | `test` | 测试 | `test(api): add unit tests for user module` |
 | `chore` | 构建/工具 | `chore: update dependencies` |
 
-### 10.2 .gitignore 最佳实践
+### 11.2 .gitignore 最佳实践
 
 **Python 项目：**
 
@@ -591,7 +734,7 @@ build/
 .idea/
 ```
 
-### 10.3 安全最佳实践
+### 11.3 安全最佳实践
 
 **不要提交敏感信息：**
 
@@ -614,7 +757,7 @@ env:
 2. 点击 "New repository secret"
 3. 添加名称和值
 
-### 10.4 README 编写规范
+### 11.4 README 编写规范
 
 **标准 README 结构：**
 
@@ -659,9 +802,9 @@ MIT License
 
 ---
 
-## 11. 高级功能
+## 12. 高级功能
 
-### 11.1 GitHub Codespaces
+### 12.1 GitHub Codespaces
 
 云端开发环境，无需本地配置。
 
@@ -672,7 +815,7 @@ MIT License
 3. 点击 "Create codespace on main"
 4. 等待环境创建完成
 
-### 11.2 GitHub Copilot
+### 12.2 GitHub Copilot
 
 AI 编程助手，提供智能代码补全。
 
@@ -683,7 +826,7 @@ AI 编程助手，提供智能代码补全。
 3. 点击 "Start trial" 或订阅
 4. 安装 VS Code 扩展
 
-### 11.3 GitHub Projects
+### 12.3 GitHub Projects
 
 项目管理工具，支持看板和表格视图。
 
@@ -696,9 +839,9 @@ AI 编程助手，提供智能代码补全。
 
 ---
 
-## 12. 故障排查
+## 13. 故障排查
 
-### 12.1 常见问题
+### 13.1 常见问题
 
 **问题 1：推送时提示权限被拒绝**
 
@@ -727,7 +870,7 @@ git fetch --all
 git reset --hard origin/main
 ```
 
-### 12.2 调试技巧
+### 13.2 调试技巧
 
 **查看远程仓库信息：**
 
@@ -749,7 +892,7 @@ git remote prune origin
 
 ---
 
-## 13. 资源链接
+## 14. 资源链接
 
 ### 官方文档
 - [GitHub 官方文档](https://docs.github.com)
@@ -767,7 +910,7 @@ git remote prune origin
 
 ---
 
-## 14. 总结
+## 15. 总结
 
 GitHub 是现代软件开发不可或缺的工具。掌握以下核心技能：
 
